@@ -40,8 +40,8 @@ class TestGitHubTools(unittest.TestCase):
         ]
         mock_get.return_value = mock_response
         
-        # 함수 실행
-        result = get_user_repositories("testuser")
+        # 함수 실행 (invoke 메서드 사용)
+        result = get_user_repositories.invoke({"username": "testuser"})
         
         # 검증
         self.assertIsInstance(result, list)
@@ -63,13 +63,13 @@ class TestGitHubTools(unittest.TestCase):
         }
         mock_post.return_value = mock_response
         
-        # 함수 실행
-        result = create_github_issue(
-            "testuser",
-            "test-repo",
-            "Test Issue",
-            "This is a test issue"
-        )
+        # 함수 실행 (invoke 메서드 사용)
+        result = create_github_issue.invoke({
+            "owner": "testuser",
+            "repo": "test-repo",
+            "title": "Test Issue",
+            "body": "This is a test issue"
+        })
         
         # 검증
         self.assertIsInstance(result, dict)
@@ -95,8 +95,8 @@ class TestGitHubTools(unittest.TestCase):
         }
         mock_get.return_value = mock_response
         
-        # 함수 실행
-        result = search_github_code("async def")
+        # 함수 실행 (invoke 메서드 사용)
+        result = search_github_code.invoke({"query": "async def"})
         
         # 검증
         self.assertIsInstance(result, list)
@@ -120,8 +120,11 @@ class TestGitHubTools(unittest.TestCase):
         }
         mock_get.return_value = mock_response
         
-        # 함수 실행
-        result = get_repository_info("testuser", "test-repo")
+        # 함수 실행 (invoke 메서드 사용)
+        result = get_repository_info.invoke({
+            "owner": "testuser",
+            "repo": "test-repo"
+        })
         
         # 검증
         self.assertIsInstance(result, dict)
@@ -141,8 +144,8 @@ class TestErrorHandling(unittest.TestCase):
         mock_response.text = "Not Found"
         mock_get.return_value = mock_response
         
-        # 함수 실행
-        result = get_user_repositories("nonexistent-user")
+        # 함수 실행 (invoke 메서드 사용)
+        result = get_user_repositories.invoke({"username": "nonexistent-user"})
         
         # 검증
         self.assertIsInstance(result, dict)
