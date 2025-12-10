@@ -171,7 +171,7 @@ def get_repository_info(owner: str, repo: str) -> Dict:
 def create_github_agent():
     """GitHub Agent를 초기화합니다"""
     llm = ChatOpenAI(
-        model="gpt-5.1",
+        model="gpt-3.5",
         temperature=0,
         api_key=OPENAI_API_KEY
     )
