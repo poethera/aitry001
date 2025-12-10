@@ -33,6 +33,10 @@ venv/
 ENV/
 env/
 .venv
+.python-version
+
+# uv (Python package manager)
+.uv/
 
 # IDEs
 .vscode/
@@ -55,3 +59,4 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+
