@@ -8,19 +8,19 @@ from typing import List, Dict
 import requests
 from langchain.tools import tool
 from langchain.agents import initialize_agent, AgentType
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 
 # 환경변수 로드
 load_dotenv()
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-COPILOT_API_KEY = os.getenv("COPILOT_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN 환경변수가 설정되지 않았습니다")
-if not COPILOT_API_KEY:
-    raise ValueError("COPILOT_API_KEY 환경변수가 설정되지 않았습니다")
+if not OPENAI_API_KEY:
+    raise ValueError("OPENAI_API_KEY 환경변수가 설정되지 않았습니다")
 
 
 # ========== 도구(Tools) 정의 ==========
@@ -171,10 +171,9 @@ def get_repository_info(owner: str, repo: str) -> Dict:
 def create_github_agent():
     """GitHub Agent를 초기화합니다"""
     llm = ChatOpenAI(
-        model="gpt-4",
+        model="gpt-5.1",
         temperature=0,
-        api_key=COPILOT_API_KEY,
-        base_url="https://api.githubcopilot.com/v1"
+        api_key=OPENAI_API_KEY
     )
     
     tools = [
